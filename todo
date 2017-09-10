@@ -1,0 +1,18 @@
+/Applications/Postgres.app/Contents/MacOS/bin/pg_restore --verbose --clean --no-acl --no-owner -h localhost -U maysam -d isonweb_dev latest.dump
+
+Log.where(reading: nil).delete_all
+Log.pluck(:reading_id).uniq.reject{|id| Reading.where(id: id).count > 0}.each{|id| Log.where(reading_id: id).delete_all}
+
+Log.delete_all
+
+Reading.delete_all tag:nil
+
+
+Reading.all.each{|e| e.delete if Time.at(e.time/1000).year < 2014}
+
+Reading.all.select{|r| r.data.length % 8 != 0}.each{|r2| r2.delete}
+
+Reading.all.map{|r| r.tag.readings.select{|r2| r.id > r2.id and r2.time/1000 == r.time/1000 and r2.offset == r.offset}.each{|r2| r2.delete}.count}
+
+Reading.all.each{|r| r.interprete_all}
+

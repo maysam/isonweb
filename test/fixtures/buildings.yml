@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+building_one:
+  name: MyString
+  project: project_one
+
+building_two:
+  name: MyString
+  project: project_one

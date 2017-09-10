@@ -1,0 +1,21 @@
+- if @tag and @reference
+  %input#selected_tag{type: 'hidden', value: @tag}
+  %h3
+    Plotting #{@tag} against #{@reference}
+  .form-group.row
+    .col-xs-1.pull-left
+      From
+    .col-xs-4.pull-left.input-group.date#datetimepicker1
+      %input.form-control{ value: 1.month.ago.strftime("%m/%d/%Y %r")}
+      %span.input-group-addon
+        = glyph :calendar
+    .col-xs-1.pull-left
+      To
+    .col-xs-4.pull-left.input-group.date#datetimepicker2
+      %input.form-control{ value: Time.now.strftime("%m/%d/%Y %r")}
+      %span.input-group-addon
+        = glyph :calendar, {:tag => :span}
+    .col-xs-1
+      %button#plot-graph
+        Plot
+  #graphdiv3

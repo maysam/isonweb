@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+customer_one:
+  name: MyString
+  address: MyString
+  phone: MyString
+  email: MyString
+  admin_user: superadmin
+
+customer_two:
+  name: MyString
+  address: MyString
+  phone: MyString
+  email: MyString
+  admin_user: normaladmin

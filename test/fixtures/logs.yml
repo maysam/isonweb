@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tag_id: 
+  temp: 
+  humidity: 
+  datetime: 
+
+two:
+  tag_id: 
+  temp: 
+  humidity: 
+  datetime: 

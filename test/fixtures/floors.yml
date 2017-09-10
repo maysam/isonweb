@@ -1,0 +1,9 @@
+floorplan_one:
+  name: basement
+  building: building_one
+  # plan:
+
+floorplan_two:
+  name: level_one
+  building: building_one
+  # plan:

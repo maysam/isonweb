@@ -1,0 +1,106 @@
+%img.hidden.256{src: '/images/tag-256.png'}
+%img.hidden.128{src: '/images/tag-128.png'}
+.row
+  .col-xs-3
+    .well.sidebar-nav
+      = select_tag :customer, options_for_select(@customers.map{|e| [e.name, e.id]} ), prompt: 'All Customers', class: 'chosen-select'
+      %h3 Projects
+      #projects.panel-group.accordion-group
+        - @projects.each_with_index do |project, index|
+          .panel.panel-default.project{class: "customer#{project.customer.id}"}
+            .panel-heading
+              %h4.panel-title
+                %a.accordion-toggle{"data-parent" => "#projects", "data-toggle" => "collapse", href: "#collapseProject#{project.id}"}
+                  %img{src: '/images/project.png'}
+                  = project.name
+            .panel-collapse.collapse{id: "collapseProject#{project.id}", class: "#{index==0?'in':''}"}
+              .panel-body
+                - @buildings.select{|a| a.project == project}.each do |building|
+                  %a.building{"data-building" => "#{building.id}"}
+                    %img{src: '/images/building.png'}
+                    = building.name
+                  %br
+  .col-xs-9
+    #newtagform{style: "display: none;"}
+      %h2 New Sensor Information
+      %form.form-horizontal
+        .form-group
+          %label.col-xs-6.control-label{for: 'name'}
+            Sensor
+          .col-xs-6
+            %select.form-control.input-medium{id: 'name', required: true}
+        .form-group
+          %label.col-xs-6.control-label{for: 'uid'}
+            UID
+          .col-xs-6
+            %input.form-control.input-medium{id: 'uid', readonly: true}
+        .form-group
+          %label.col-xs-6.control-label{for: 'x'}
+            X
+          .col-xs-6
+            %input.form-control.input-medium{id: 'x', placeholder: 'x', required: true}
+        .form-group
+          %label.col-xs-6.control-label{for: 'y'}
+            Y
+          .col-xs-6
+            %input.form-control.input-medium{id: 'y', placeholder: 'y', required: true}
+        .form-group
+          .col-xs-12
+            %a.btn.btn-success.btn-small.save-button
+              save
+            %a.btn.btn-danger.btn-small.cancel-button
+              cancel
+    #edittagform{style: "display: none;"}
+      %h2 Edit Sensor Information
+      .form-horizontal
+        .form-group
+          %label.col-xs-6.control-label{for: 'uid'}
+            Sensor
+          .col-xs-6
+            %input.form-control.input-medium{id: 'uid', readonly: true}
+        .form-group
+          %label.col-xs-6.control-label{for: 'name'}
+            Name
+          .col-xs-6
+            %input.form-control.input-medium{id: 'name', required: true}
+        .form-group
+          %label.col-xs-6.control-label{for: 'x'}
+            X
+          .col-xs-6
+            %input.form-control.input-medium{id: 'x', placeholder: 'x', required: true}
+        .form-group
+          %label.col-xs-6.control-label{for: 'y'}
+            Y
+          .col-xs-6
+            %input.form-control.input-medium{id: 'y', placeholder: 'y', required: true}
+        .form-group
+          .col-xs-12
+            %a.btn.btn-success.btn-small.update-button
+              Update
+            %a.btn.btn-danger.btn-small.delete-button
+              Delete
+            %a.btn.btn-info.btn-small.graph-button{href: '#', target: '_blank'}
+              Graph
+    - @buildings.each_with_index do |building|
+      #floors.panel-group.building{class: "building#{building.id}"}
+        %h4
+          Building:
+          = building.name
+        - @floors.select{|a| a.building == building}.each do |floor|
+          .panel.panel-default
+            .panel-heading
+              %h4.panel-title
+                %a.floorplan.accordion-toggle{"data-url" => "#{floor.url}", "data-parent" => ".building#{building.id}", "data-toggle" => "collapse", href: "#collapseFloor#{floor.id}"}
+                  %img{src: '/images/floorplan.png'}
+                  = floor.name
+            .panel-collapse.collapse{id: "collapseFloor#{floor.id}"}
+              .panel-body
+                %span.zoom{"data-id" => "#{floor.id}"}
+                  %img.photoTag.holder{width: "555", height: "320", "data-user-id" => "25", "data-floor_id" => "#{floor.id}"}
+  :coffee
+    window.tags = [] unless window.tags
+- @tags.each do |tag|
+  :coffee
+    json = #{tag.to_json}
+    tags.push json
+    new tag json.floor_id, json.x, json.y, json
