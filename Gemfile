@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
-ruby '2.4.0'
+ruby '2.4.1'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.9'
 # Use sqlite3 as the database for Active Record
-gem 'pg'
+gem 'pg', '0.21.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -54,7 +54,7 @@ gem "haml-rails"
 gem 'chosen-rails'
 
 gem "paperclip"#, github: 'thoughtbot/paperclip'
-gem 'aws-sdk'
+# gem 'aws-sdk'
 
 gem 'momentjs-rails', '>= 2.8.1'
 gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
